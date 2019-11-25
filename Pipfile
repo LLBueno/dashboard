@@ -4,6 +4,7 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+ipython = "*"
 
 [packages]
 django = "*"
@@ -11,6 +12,9 @@ gunicorn = "*"
 dj-static = "*"
 python-decouple = "*"
 dj-database-url = "*"
+psycopg2 = "*"
+psycopg2-binary = "*"
+django-mathfilters = "*"
 
 [requires]
 python_version = "3.8"

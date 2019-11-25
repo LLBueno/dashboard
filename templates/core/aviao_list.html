@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1 class="ml-5">Aviões</h1>
+	<div class="row justify-content-start">
+	{% for aviao in object_list %}
+		<div class="card bg-light m-3 col-xs-5 col-sm-5 col-md-3 col-lg-2 col-xl-2 text-dark" style="height: 120px">
+			<div class="card-body">
+		  		<h3 class="card-title"><i class="fas fa-plane"></i> {{ aviao.numero }}</h3>
+		  		<a href="{% url 'aviao_detail' aviao.pk %}" class="card-link">DETALHES <i class="fas fa-info-circle fa-lg"></i></a>
+			</div>
+		</div>
+	{% endfor %}
+	</div>
+{% endblock content %}

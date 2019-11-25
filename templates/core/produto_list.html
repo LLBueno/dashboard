@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load mathfilters %}
+
+{% block content %}
+
+	<h1 class="ml-5">Média de andamento dos Produtos</h1>
+	<div class="row justify-content-center">
+	{% for produto in object_list %}
+		{% if produto.media_atraso < 0 %}
+			<div class="card bg-danger m-2 col-xs-5 col-sm-5 col-md-3 col-lg-2 col-xl-2 text-white" style="height: 150px">
+		{% elif produto.media_atraso > 0 %}
+			<div class="card bg-primary m-2 col-xs-5 col-sm-5 col-md-3 col-lg-2 col-xl-2 text-white" style="height: 150px">
+		{% elif produto.media_atraso == 0 %}
+			<div class="card bg-success m-2 col-xs-5 col-sm-5 col-md-3 col-lg-2 col-xl-2 text-white" style="height: 150px">
+		{% else %}
+			<div class="card bg-light m-2 col-xs-5 col-sm-5 col-md-3 col-lg-2 col-xl-2 text-dark" style="height: 150px">
+		{% endif %}
+		  <div class="card-body">
+		  	<h3 class="card-title">{{ produto.nome }}</h3>
+		    <p class="card-text"><i class="fas fa-plane"></i> {{ produto.aviao }}</p>
+		    {% if produto.media_atraso != None %}
+		    	{{ produto.media_atraso|abs }} dia(s)
+		    	<a href="{% url 'produto_detail' produto.pk %}" class="card-link"><i class="fas fa-info-circle fa-lg text-white"></i></a>
+		    {% else %}
+		    	Sem Posto
+		    	<a href="{% url 'produto_detail' produto.pk %}" class="card-link"><i class="fas fa-info-circle fa-lg text-dark"></i></a>
+		    {% endif %}
+		  </div>
+		</div>
+	{% endfor %}
+	</div>
+{% endblock content %}

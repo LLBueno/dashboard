@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load mathfilters %}
+
+{% block content %}
+	<h1>Detalhes do Avião</h1>
+	<h3>Número: {{ object.numero }}</h3>
+
+	<div class="row justify-content-start">
+		{% for produto in produtos %}
+			{% if produto.media_atraso < 0 %}
+				<div class="card bg-danger mt-2 mb-2 ml-2 mr-4 col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 text-white" style="height: 120px">
+			{% elif produto.media_atraso > 0 %}
+				<div class="card bg-primary mt-2 mb-2 ml-2 mr-4 col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 text-white" style="height: 120px">
+			{% elif produto.media_atraso == 0 %}
+				<div class="card bg-success mt-2 mb-2 ml-2 mr-4 col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 text-white" style="height: 120px">
+			{% else %}
+				<div class="card bg-light mt-2 mb-2 ml-2 mr-4 col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 text-dark" style="height: 120px">
+			{% endif %}
+			  <div class="card-body">
+			  	<h3 class="card-title">{{ produto.nome }}</h3>
+			    <p class="card-text"><i class="fas fa-plane"></i> {{ produto.aviao }}</p>
+			    {% if produto.media_atraso != None %}
+			    	{{ produto.media_atraso|abs }} dia(s)
+			    {% else %}
+			    	Sem Posto
+			    {% endif %}
+			  </div>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock content %}
