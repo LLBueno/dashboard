@@ -12,7 +12,6 @@ gunicorn = "*"
 dj-static = "*"
 python-decouple = "*"
 dj-database-url = "*"
-psycopg2 = "*"
 psycopg2-binary = "*"
 django-mathfilters = "*"
 
