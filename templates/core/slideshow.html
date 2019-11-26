@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div id="carouselExampleSlidesOnly" class="carousel slide mt-5" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+        <div class="card bg-white m-3 col-12 text-dark d-block h-70">
+			<div class="card-body text-center">
+		  		<h1>SLIDESHOW DA PRODUÇÃO</h1>
+		  		<img src="{% static 'images/logo-latecoere.png' %}">
+			</div>
+		</div>
+    </div>
+    {% for obj in object_list %}
+    	<div class="carousel-item">
+    		{% if obj.media_atraso < 0 %}
+				<div class="card bg-danger col-12 text-white">
+			{% elif obj.media_atraso > 0 %}
+				<div class="card bg-primary col-12 text-white">
+			{% elif obj.media_atraso == 0 %}
+				<div class="card bg-success col-12 text-white">
+			{% else %}
+				<div class="card bg-white col-12 text-dark">
+			{% endif %}
+				<div class="card-body">
+			  		<div class="row">
+			  			<div class="col-8">
+			  				<h1><i class="fas fa-plane"></i> {{ obj.aviao }}</h1>
+			  				<h1><i class="fas fa-parachute-box"></i> {{ obj.nome }}</h1>
+			  			</div>
+			  			<div class="col-4">
+					  		{{ obj.get_images }}
+			  			</div>
+			  		</div>
+				</div>
+		</div>
+	    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

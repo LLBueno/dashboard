@@ -2,34 +2,29 @@
 {% load mathfilters %}
 
 {% block content %}
-	<h1>Detalhes do Produto</h1>
-	<h3>Nome: {{ object.nome }}</h3>
-	<h4><i class="fas fa-plane"></i> {{ object.aviao }}</h4>
-	{% for posto in postostrabalho %}
-		{{ posto }}<br>
-	{% endfor %}
+	<h1 class="text-center">Detalhes do Produto</h1>
+	<h4 class="text-center">Nome: {{ object.nome }} <i class="fas fa-plane"></i> {{ object.aviao }}</h4>
 
-	<div class="row justify-content-start">
-<!-- 		{% for produto in produtos %}
-			{% if produto.media_atraso < 0 %}
-				<div class="card bg-danger mt-2 mb-2 ml-2 mr-4 col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 text-white" style="height: 120px">
-			{% elif produto.media_atraso > 0 %}
-				<div class="card bg-primary mt-2 mb-2 ml-2 mr-4 col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 text-white" style="height: 120px">
-			{% elif produto.media_atraso == 0 %}
-				<div class="card bg-success mt-2 mb-2 ml-2 mr-4 col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 text-white" style="height: 120px">
+	<div class="row justify-content-center">
+
+		{% for posto in postostrabalho %}
+			{% if posto.media_atraso < 0 %}
+			<div class="card bg-danger mt-2 mb-2 ml-2 mr-4 col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 text-white">
+			{% elif posto.media_atraso > 0 %}
+			<div class="card bg-primary mt-2 mb-2 ml-2 mr-4 col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 text-white">
+			{% elif posto.media_atraso == 0 %}
+			<div class="card bg-success mt-2 mb-2 ml-2 mr-4 col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 text-white">
 			{% else %}
-				<div class="card bg-light mt-2 mb-2 ml-2 mr-4 col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 text-dark" style="height: 120px">
+			<div class="card bg-white mt-2 mb-2 ml-2 mr-4 col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 text-dark">
 			{% endif %}
-			  <div class="card-body">
-			  	<h3 class="card-title">{{ produto.nome }}</h3>
-			    <p class="card-text"><i class="fas fa-plane"></i> {{ produto.aviao }}</p>
-			    {% if produto.media_atraso != None %}
-			    	{{ produto.media_atraso|abs }} dia(s)
-			    {% else %}
-			    	Sem Posto
-			    {% endif %}
+				<div class="card-body">
+			  	<h3 class="card-title">{{ posto }}</h3>
+			    <p class="card-text">Data inicio planejada: {{ posto.data_inicio_planejada.date|default:"Sem data" }}</p>
+			    <p class="card-text">Data inicio real: {{ posto.data_inicio_real.date|default:"Sem data" }}</p>
+			    <p class="card-text">Data final planejada: {{ posto.data_final_planejada.date|default:"Sem data" }}</p>
+			    <p class="card-text">Data final real: {{ posto.data_final_real.date|default:"Sem data" }}</p>
 			  </div>
 			</div>
-		{% endfor %} -->
+		{% endfor %}
 	</div>
 {% endblock content %}

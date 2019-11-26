@@ -5,42 +5,47 @@
             <li>
                 <a href="{% url 'aviao_list' %}">
                     <i class="metismenu-icon fas fa-plane"></i>
-                    Aviões (Range)
+                    Ranges
                 </a>
             </li>
             <li>
                 <a href="{% url 'produto_list' %}">
                     <i class="metismenu-icon fas fa-parachute-box"></i>
-                    Produtos  (Linha)
+                    Linhas
                 </a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="{% url 'aviao_list' %}">
                     <i class="metismenu-icon fas fa-warehouse"></i>
                     Postos de Trabalho
                 </a>
-            </li>
+            </li> -->
 
             <li class="app-sidebar__heading">Outras Opções</li>
             <li>
                 <a href="#">
                     <i class="metismenu-icon fas fa-chart-pie"></i>
-
                     Gráficos
                     <i class="metismenu-state-icon fas fa-chevron-up caret-left"></i>
                 </a>
                 <ul>
                     <li>
                         <a href="{% url 'aviao_grafico' %}">
-                            </i>Andamento
+                            Andamento
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="#">
-                            </i>Produtos
+                            Produtos
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
+            </li>
+            <li>
+                <a href="{% url 'slideshow' %}">
+                    <i class="metismenu-icon fas fa-video"></i>
+                    Slideshow Mode
+                </a>
             </li>
         </ul>
     </div>

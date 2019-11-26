@@ -52,13 +52,14 @@
 					</span>
 				</div>    <div class="app-header__content">
 					<div class="app-header-left">
-						<div class="search-wrapper">
-							<div class="input-holder">
-								<input type="text" class="search-input" placeholder="Type to search">
-								<button class="search-icon"><span></span></button>
+						<form method="POST"> {% csrf_token %}
+							<div class="search-wrapper active">
+								<div class="input-holder">
+									<input type="text" name="q" class="search-input" placeholder="Type to search">
+									<button type="submit" class="search-icon"><span></span></button>
+								</div>
 							</div>
-							<button class="close"></button>
-						</div>
+						</form>
 					</div>
 						<div class="app-header-right">
 							<div class="header-btn-lg pr-0">
@@ -71,12 +72,7 @@
 													<i class="fa fa-angle-down ml-2 opacity-8"></i>
 												</a>
 												<div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
-													<button type="button" tabindex="0" class="dropdown-item">User Account</button>
-													<button type="button" tabindex="0" class="dropdown-item">Settings</button>
-													<h6 tabindex="-1" class="dropdown-header">Header</h6>
-													<button type="button" tabindex="0" class="dropdown-item">Actions</button>
-													<div tabindex="-1" class="dropdown-divider"></div>
-													<button type="button" tabindex="0" class="dropdown-item">Dividers</button>
+													<button type="button" tabindex="0" class="dropdown-item"><a href="{% url 'logout' %}">Logout</a></button>
 												</div>
 											</div>
 										</div>

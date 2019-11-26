@@ -1,20 +1,23 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from dashboard.core.models import Produto, Aviao
 import json
 
 
+@login_required
 def index(request):
-    return render(request, 'login.html')
+    return render(request, 'index.html')
 
 
-class ProdutoListView(ListView):
+class ProdutoListView(LoginRequiredMixin, ListView):
     template_name = 'core/produto_list.html'
     model = Produto
-    paginate_by = 10
+    paginate_by = 15
 
 
-class ProdutoDetailView(DetailView):
+class ProdutoDetailView(LoginRequiredMixin, DetailView):
     template_name = 'core/produto_detail.html'
     model = Produto
     fields = '__all__'
@@ -25,13 +28,13 @@ class ProdutoDetailView(DetailView):
         return context
 
 
-class AviaoListView(ListView):
+class AviaoListView(LoginRequiredMixin, ListView):
     template_name = 'core/aviao_list.html'
     model = Aviao
-    paginate_by = 10
+    paginate_by = 15
 
 
-class AviaoDetailView(DetailView):
+class AviaoDetailView(LoginRequiredMixin, DetailView):
     template_name = 'core/aviao_detail.html'
     model = Aviao
     fields = '__all__'
@@ -42,7 +45,7 @@ class AviaoDetailView(DetailView):
         return context
 
 
-class ProdutosChartView(TemplateView):
+class ProdutosChartView(LoginRequiredMixin, TemplateView):
     template_name = 'core/produtos_grafico.html'
 
     def json_grafico(self):
@@ -78,3 +81,8 @@ class ProdutosChartView(TemplateView):
         context = super(ProdutosChartView, self).get_context_data(**kwargs)
         context['data_chart'] = self.json_grafico()
         return context
+
+
+class SlideshowView(LoginRequiredMixin, ListView):
+    template_name = 'core/slideshow.html'
+    model = Produto

@@ -14,6 +14,8 @@ python-decouple = "*"
 dj-database-url = "*"
 psycopg2-binary = "*"
 django-mathfilters = "*"
+django-bootstrap-form = "*"
+numpy = "*"
 
 [requires]
 python_version = "3.8"

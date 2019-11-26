@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mathfilters',
     'dashboard.core',
+    'bootstrapform',
 ]
 
 MIDDLEWARE = [
@@ -107,6 +108,13 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+LOGIN_URL = 'login'
+
+LOGIN_REDIRECT_URL = 'aviao_list'
+
+LOGOUT_REDIRECT_URL = 'aviao_list'
+
 
 
 # Internationalization

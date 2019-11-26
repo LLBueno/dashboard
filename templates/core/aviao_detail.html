@@ -1,25 +1,26 @@
 {% extends 'base.html' %}
-{% load mathfilters %}
+{% load staticfiles mathfilters %}
 
 {% block content %}
-	<h1>Detalhes do Avião</h1>
-	<h3>Número: {{ object.numero }}</h3>
+	<h1 class="text-center">Detalhes do Range</h1>
+	<h2 class="text-center">Número: {{ object.numero }}</h2>
 
-	<div class="row justify-content-start">
+	<div class="row justify-content-center">
 		{% for produto in produtos %}
 			{% if produto.media_atraso < 0 %}
-				<div class="card bg-danger mt-2 mb-2 ml-2 mr-4 col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 text-white" style="height: 120px">
+				<div class="card bg-danger mt-2 mb-2 ml-2 mr-4 text-white">
 			{% elif produto.media_atraso > 0 %}
-				<div class="card bg-primary mt-2 mb-2 ml-2 mr-4 col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 text-white" style="height: 120px">
+				<div class="card bg-primary mt-2 mb-2 ml-2 mr-4 text-white">
 			{% elif produto.media_atraso == 0 %}
-				<div class="card bg-success mt-2 mb-2 ml-2 mr-4 col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 text-white" style="height: 120px">
+				<div class="card bg-success mt-2 mb-2 ml-2 mr-4 text-white">
 			{% else %}
-				<div class="card bg-light mt-2 mb-2 ml-2 mr-4 col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 text-dark" style="height: 120px">
+				<div class="card bg-light mt-2 mb-2 ml-2 mr-4 text-dark">
 			{% endif %}
+				<img src="{% static 'images/CF-1.png'%}" class="card-img-top">
 			  <div class="card-body">
 			  	<h3 class="card-title">{{ produto.nome }}</h3>
 			    <p class="card-text"><i class="fas fa-plane"></i> {{ produto.aviao }}</p>
-			    {% if produto.media_atraso != None %}
+			    {% if produto.media_atraso is not None %}
 			    	{{ produto.media_atraso|abs }} dia(s)
 			    {% else %}
 			    	Sem Posto
