@@ -1,8 +1,10 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, TemplateView
+from django.views.generic import ListView, DetailView, TemplateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from dashboard.core.models import Produto, Aviao
+from django.urls import reverse_lazy
+from dashboard.core.models import Produto, Aviao, Feriado
+from .forms import FeriadoForm
 import json
 
 
@@ -15,6 +17,14 @@ class ProdutoListView(LoginRequiredMixin, ListView):
     template_name = 'core/produto_list.html'
     model = Produto
     paginate_by = 15
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            object_list = self.model.objects.filter(nome__icontains=query)
+        else:
+            object_list = self.model.objects.all()
+        return object_list
 
 
 class ProdutoDetailView(LoginRequiredMixin, DetailView):
@@ -32,6 +42,14 @@ class AviaoListView(LoginRequiredMixin, ListView):
     template_name = 'core/aviao_list.html'
     model = Aviao
     paginate_by = 15
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            object_list = self.model.objects.filter(numero__icontains=query)
+        else:
+            object_list = self.model.objects.all()
+        return object_list
 
 
 class AviaoDetailView(LoginRequiredMixin, DetailView):
@@ -84,5 +102,44 @@ class ProdutosChartView(LoginRequiredMixin, TemplateView):
 
 
 class SlideshowView(LoginRequiredMixin, ListView):
+    # slides = [
+    #     {
+    #         'nome produto': 'xxx',
+    #         'range': 'yyy',
+    #         'postos': ''
+    #     }
+    # ]
     template_name = 'core/slideshow.html'
     model = Produto
+    queryset = Produto.objects.filter()
+
+    def cria_dict_slides(self):
+        slides = {}
+        for produto in self.object_list:
+            # import pdb; pdb.set_trace()
+            k = '%s (%s)' % (produto.nome, produto.aviao.numero)
+            if k not in slides:
+                slides[k] = {
+                    'postos': {}
+                }
+            for posto in produto.produtopostotrabalho_set.all():
+                slides[k]['postos'][posto.posto_trabalho.nome] = posto.media_atraso
+        return slides
+
+    def get_context_data(self, **kwargs):
+        context = super(SlideshowView, self).get_context_data(**kwargs)
+        context['postos'] = self.cria_dict_slides()
+        return context
+
+
+class FeriadoCreateView(LoginRequiredMixin, CreateView):
+    template_name = 'core/feriado_form.html'
+    model = Feriado
+    form_class = FeriadoForm
+    success_url = reverse_lazy("feriado_list")
+
+
+class FeriadoListView(LoginRequiredMixin, ListView):
+    template_name = 'core/feriado_list.html'
+    model = Feriado
+    paginate_by = 15

@@ -34,6 +34,9 @@ class Produto(models.Model):
         through_fields=('produto', 'posto_trabalho'),
     )
 
+    def get_feriados(self):
+        return [x.data for x in Feriado.objects.all()]
+
     @property
     def media_atraso(self):
         if not self.produtopostotrabalho_set.exists():
@@ -41,7 +44,7 @@ class Produto(models.Model):
         media = 0
         for posto in self.produtopostotrabalho_set.all():
             if posto.data_inicio_planejada and posto.data_inicio_real:
-                diff_data = np.busday_count(posto.data_inicio_real.date(), posto.data_inicio_planejada.date())
+                diff_data = np.busday_count(posto.data_inicio_real.date(), posto.data_inicio_planejada.date(), holidays=self.get_feriados())
                 media += diff_data
         return media
 
@@ -61,12 +64,15 @@ class ProdutoPostoTrabalho(models.Model):
     data_inicio_real = models.DateTimeField(blank=True, null=True)
     data_final_real = models.DateTimeField(blank=True, null=True)
 
+    def get_feriados(self):
+        return [x.data for x in Feriado.objects.all()]
+
     @property
     def media_atraso(self):
         if self.data_final_planejada and self.data_final_real:
-            return np.busday_count(self.data_final_real.date(), self.data_final_planejada.date())
+            return np.busday_count(self.data_final_real.date(), self.data_final_planejada.date(), holidays=self.get_feriados())
         elif self.data_inicio_planejada and self.data_inicio_real:
-            return np.busday_count(self.data_inicio_real.date(), self.data_inicio_planejada.date())
+            return np.busday_count(self.data_inicio_real.date(), self.data_inicio_planejada.date(), holidays=self.get_feriados())
         return None
 
     class Meta:
@@ -81,6 +87,12 @@ class ProdutoPostoTrabalho(models.Model):
 class Feriado(models.Model):
     nome = models.CharField(max_length=25, blank=False, null=False)
     data = models.DateField(blank=False, null=False)
+
+    class Meta:
+        ordering = ['-data']
+
+    def __str__(self):
+        return self.nome
 
 
 class CSV(models.Model):

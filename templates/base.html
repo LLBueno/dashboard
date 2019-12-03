@@ -52,11 +52,11 @@
 					</span>
 				</div>    <div class="app-header__content">
 					<div class="app-header-left">
-						<form method="POST"> {% csrf_token %}
+						<form method="GET">
 							<div class="search-wrapper active">
 								<div class="input-holder">
 									<input type="text" name="q" class="search-input" placeholder="Type to search">
-									<button type="submit" class="search-icon"><span></span></button>
+									<button class="search-icon" type="submit"><span></span></button>
 								</div>
 							</div>
 						</form>

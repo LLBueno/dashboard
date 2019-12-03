@@ -18,11 +18,19 @@
 			<div class="card bg-white mt-2 mb-2 ml-2 mr-4 col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 text-dark">
 			{% endif %}
 				<div class="card-body">
-			  	<h3 class="card-title">{{ posto }}</h3>
-			    <p class="card-text">Data inicio planejada: {{ posto.data_inicio_planejada.date|default:"Sem data" }}</p>
-			    <p class="card-text">Data inicio real: {{ posto.data_inicio_real.date|default:"Sem data" }}</p>
-			    <p class="card-text">Data final planejada: {{ posto.data_final_planejada.date|default:"Sem data" }}</p>
-			    <p class="card-text">Data final real: {{ posto.data_final_real.date|default:"Sem data" }}</p>
+				  	<h3 class="card-title">{{ posto }}</h3>
+				    <p class="card-text">
+				    	Data inicio planejada: {{ posto.data_inicio_planejada.date|default:"Sem data" }}
+				    </p>
+				    <p class="card-text">
+				    	Data inicio real: {{ posto.data_inicio_real.date|default:"Sem data" }}
+				    </p>
+				    <p class="card-text">
+				    	Data final planejada: {{ posto.data_final_planejada.date|default:"Sem data" }}
+					</p>
+				    <p class="card-text">
+				    	Data final real: {{ posto.data_final_real.date|default:"Sem data" }}
+					</p>
 			  </div>
 			</div>
 		{% endfor %}

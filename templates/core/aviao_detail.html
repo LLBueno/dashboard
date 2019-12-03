@@ -19,7 +19,6 @@
 				<img src="{% static 'images/CF-1.png'%}" class="card-img-top">
 			  <div class="card-body">
 			  	<h3 class="card-title">{{ produto.nome }}</h3>
-			    <p class="card-text"><i class="fas fa-plane"></i> {{ produto.aviao }}</p>
 			    {% if produto.media_atraso is not None %}
 			    	{{ produto.media_atraso|abs }} dia(s)
 			    {% else %}
